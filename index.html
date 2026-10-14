@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>富士東京冬日手帖</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Huninn&family=Mochiy+Pop+One&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+/* Layout: phone-first pocket guidebook — sticker hero, day tabs, bottom tab bar; winter-sunrise palette (snow blue × persimmon × sakura) */
+:root{
+  --bg:#F3F7FC;          /* winter sky snow */
+  --paper:#FFFFFF;
+  --ink:#24304A;         /* deep lake navy */
+  --muted:#66728C;
+  --line:#DCE4F0;
+  --sky:#7FB7EA;         /* Fuji morning blue */
+  --sky-soft:#DDEEFC;
+  --persimmon:#FF7A45;   /* 柿子橘 accent */
+  --persimmon-soft:#FFE6DA;
+  --sakura:#FF8FB1;
+  --sakura-soft:#FFE3EC;
+  --matcha:#59B88A;
+  --matcha-soft:#DDF4E8;
+  --sun:#FFC94A;
+  --shadow:0 6px 0 rgba(36,48,74,.08);
+  --f-display:"Huninn","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --f-pop:"Mochiy Pop One","Huninn","Noto Sans TC",sans-serif;
+  --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141A2B;--paper:#1E2740;--ink:#EEF2FA;--muted:#A6B1C9;--line:#2F3A57;
+  --sky:#8CC2F2;--sky-soft:#22375A;--persimmon:#FF8C5C;--persimmon-soft:#4A2A22;
+  --sakura:#FF9DBB;--sakura-soft:#4A2636;--matcha:#6CCB9C;--matcha-soft:#1F3E33;--sun:#FFD267;
+  --shadow:0 6px 0 rgba(0,0,0,.25);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141A2B;--paper:#1E2740;--ink:#EEF2FA;--muted:#A6B1C9;--line:#2F3A57;
+  --sky:#8CC2F2;--sky-soft:#22375A;--persimmon:#FF8C5C;--persimmon-soft:#4A2A22;
+  --sakura:#FF9DBB;--sakura-soft:#4A2636;--matcha:#6CCB9C;--matcha-soft:#1F3E33;--sun:#FFD267;
+  --shadow:0 6px 0 rgba(0,0,0,.25);color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.65;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:0 calc(92px + env(safe-area-inset-bottom,0px))}
+.wrap{max-width:760px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance;margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--persimmon);outline-offset:2px;border-radius:10px}
+a{color:var(--persimmon)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;margin-top:16px;border-radius:28px;overflow:hidden;
+  background:linear-gradient(180deg,var(--sky-soft) 0%,var(--paper) 100%);border:2px solid var(--line);
+  padding:22px 20px 18px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:end}
+.hero .kana{font-family:var(--f-pop);font-size:13px;letter-spacing:.12em;color:var(--persimmon)}
+.hero h1{font-size:clamp(28px,7vw,40px);line-height:1.15;margin-top:4px}
+.hero h1 em{font-style:normal;color:var(--persimmon)}
+.hero p{margin:8px 0 0;color:var(--muted);font-size:14px}
+.count{display:inline-flex;align-items:baseline;gap:6px;margin-top:12px;background:var(--ink);color:var(--bg);
+  border-radius:999px;padding:6px 14px 6px 12px;transform:rotate(-2deg)}
+.count b{font-family:var(--f-pop);font-size:22px;font-variant-numeric:tabular-nums;color:var(--sun)}
+.mascot{width:118px;height:auto}
+@media (prefers-reduced-motion:no-preference){
+  .mascot .bob{animation:bob 3.2s ease-in-out infinite;transform-origin:60px 100px}
+  @keyframes bob{50%{transform:translateY(-4px) rotate(-1.5deg)}}
+  .snow circle{animation:fall 6s linear infinite}
+  @keyframes fall{from{transform:translateY(-10px)}to{transform:translateY(120px)}}
+}
+.snow{position:absolute;inset:0;pointer-events:none}
+
+.route{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.route span{font-size:12.5px;padding:3px 10px;border-radius:999px;background:var(--paper);border:1.5px solid var(--line)}
+.route span.f{border-color:var(--sky);}
+.route span.t{border-color:var(--sakura);}
+
+/* ---------- sections ---------- */
+section.view{padding-top:22px}
+section.view[hidden]{display:none}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.sec-head h2{font-size:24px}
+.sec-head small{color:var(--muted);font-size:13px}
+
+/* day pills */
+.days{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:none}
+.days::-webkit-scrollbar{display:none}
+.daybtn{flex:0 0 auto;border:2px solid var(--line);background:var(--paper);border-radius:18px;padding:8px 12px;
+  cursor:pointer;text-align:center;min-width:70px;line-height:1.2}
+.daybtn .d{display:block;font-family:var(--f-pop);font-size:18px}
+.daybtn .w{font-size:11.5px;color:var(--muted)}
+.daybtn.fuji{--c:var(--sky)} .daybtn.tokyo{--c:var(--sakura)}
+.daybtn[aria-selected="true"]{background:var(--c);border-color:var(--c);color:#1B2338;box-shadow:var(--shadow);transform:translateY(-2px)}
+.daybtn[aria-selected="true"] .w{color:#1B2338}
+
+.daycard{background:var(--paper);border:2px solid var(--line);border-radius:24px;padding:18px;box-shadow:var(--shadow)}
+.daycard .top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:flex-start}
+.daycard h3{font-size:22px}
+.daycard .sub{color:var(--muted);font-size:13.5px;margin-top:2px}
+.wx{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--sky-soft);white-space:nowrap}
+.chip.warm{background:var(--persimmon-soft)} .chip.pink{background:var(--sakura-soft)} .chip.green{background:var(--matcha-soft)}
+
+.timeline{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:0}
+.timeline li{display:grid;grid-template-columns:54px 1fr;gap:12px;position:relative;padding-bottom:16px}
+.timeline li::before{content:"";position:absolute;left:66px;top:14px;bottom:-2px;width:2px;background:repeating-linear-gradient(var(--line) 0 5px,transparent 5px 9px)}
+.timeline li:last-child::before{display:none}
+.timeline .t{font-family:var(--f-pop);font-size:13px;color:var(--muted);padding-top:2px;font-variant-numeric:tabular-nums}
+.timeline .body{position:relative;padding-left:18px;min-width:0}
+.timeline .body::before{content:"";position:absolute;left:-1px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--dot,var(--sky));border:2.5px solid var(--paper);box-shadow:0 0 0 2px var(--dot,var(--sky))}
+.timeline .kind-move{--dot:var(--muted)} .timeline .kind-food{--dot:var(--persimmon)} .timeline .kind-night{--dot:var(--sakura)} .timeline .kind-see{--dot:var(--matcha)}
+.timeline b{font-weight:700}
+.timeline p{margin:2px 0 0;color:var(--muted);font-size:13.5px}
+.maplink{font-size:12.5px;text-decoration:none;display:inline-flex;align-items:center;gap:3px;margin-top:4px;font-weight:500}
+.guide-note{margin-top:6px;background:var(--persimmon-soft);border-radius:16px 16px 16px 4px;padding:10px 12px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start}
+.guide-note svg{flex:0 0 30px}
+.askday{margin-top:14px;width:100%;border:2px dashed var(--persimmon);background:transparent;border-radius:16px;padding:10px;cursor:pointer;font-weight:500;color:var(--persimmon)}
+
+/* ---------- spots ---------- */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.fbtn{border:2px solid var(--line);background:var(--paper);border-radius:999px;padding:5px 14px;cursor:pointer;font-size:13.5px}
+.fbtn[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.spots{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.spot{background:var(--paper);border:2px solid var(--line);border-radius:22px;padding:14px 14px 12px;display:flex;flex-direction:column;gap:6px;position:relative;min-width:0}
+.spot .tag{position:absolute;top:-10px;left:14px;font-family:var(--f-pop);font-size:11px;padding:2px 10px;border-radius:999px;transform:rotate(-3deg)}
+.spot.fuji .tag{background:var(--sky);color:#1B2338} .spot.tokyo .tag{background:var(--sakura);color:#1B2338}
+.spot h3{font-size:18px;margin-top:6px;padding-right:36px}
+.spot .jp{font-size:12px;color:var(--muted);margin-top:-4px}
+.spot p{margin:0;font-size:13.5px}
+.spot .tip{background:var(--bg);border-radius:12px;padding:6px 10px;font-size:12.5px;color:var(--muted)}
+.spot .row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;flex-wrap:wrap}
+.heart{position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:50%;border:2px solid var(--line);background:var(--paper);cursor:pointer;display:grid;place-items:center}
+.heart svg{width:18px;height:18px;fill:none;stroke:var(--sakura);stroke-width:2.2}
+.heart[aria-pressed="true"]{background:var(--sakura-soft);border-color:var(--sakura)}
+.heart[aria-pressed="true"] svg{fill:var(--sakura)}
+.empty{color:var(--muted);text-align:center;padding:24px;border:2px dashed var(--line);border-radius:20px}
+
+/* ---------- guide chat ---------- */
+.chat{background:var(--paper);border:2px solid var(--line);border-radius:24px;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow)}
+.chat-top{display:flex;gap:10px;align-items:center;padding:12px 14px;background:var(--persimmon-soft);border-bottom:2px solid var(--line)}
+.chat-top svg{width:48px;height:48px;flex:0 0 48px}
+.chat-top b{font-family:var(--f-display);font-size:18px;font-weight:400;display:block}
+.chat-top small{color:var(--muted);font-size:12px}
+.status{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--matcha);margin-right:4px;vertical-align:middle}
+.status.off{background:var(--muted)}
+.msgs{padding:14px;display:flex;flex-direction:column;gap:10px;min-height:260px;max-height:52vh;overflow-y:auto}
+.msg{max-width:86%;padding:9px 13px;border-radius:18px;font-size:14px;white-space:pre-wrap;word-break:break-word}
+.msg.bot{background:var(--bg);border-bottom-left-radius:4px;align-self:flex-start}
+.msg.me{background:var(--sky);color:#1B2338;border-bottom-right-radius:4px;align-self:flex-end}
+.msg.thinking{color:var(--muted)}
+.quick{display:flex;gap:6px;overflow-x:auto;padding:0 14px 10px;scrollbar-width:none}
+.quick button{flex:0 0 auto;border:1.5px solid var(--persimmon);color:var(--persimmon);background:transparent;border-radius:999px;padding:4px 12px;font-size:12.5px;cursor:pointer}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:2px solid var(--line)}
+.composer input{flex:1;min-width:0;border:2px solid var(--line);border-radius:999px;padding:9px 14px;background:var(--bg);color:var(--ink);font:inherit;font-size:16px}
+.send{border:0;background:var(--persimmon);color:#fff;border-radius:999px;padding:0 18px;font-weight:700;cursor:pointer}
+.send:disabled{opacity:.5;cursor:default}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+
+/* ---------- checklist ---------- */
+.lists{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.list{background:var(--paper);border:2px solid var(--line);border-radius:22px;padding:14px}
+.list h3{font-size:18px;display:flex;justify-content:space-between;align-items:baseline}
+.list h3 small{font-family:var(--f-pop);font-size:13px;color:var(--matcha);font-variant-numeric:tabular-nums}
+.bar{height:8px;border-radius:999px;background:var(--bg);margin:8px 0 6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--matcha);border-radius:999px;transition:width .3s}
+.check{display:flex;gap:10px;align-items:center;padding:7px 2px;border-bottom:1.5px dashed var(--line);cursor:pointer;font-size:14px}
+.check:last-child{border-bottom:0}
+.check input{appearance:none;width:22px;height:22px;border:2px solid var(--line);border-radius:8px;flex:0 0 22px;display:grid;place-items:center;cursor:pointer;background:var(--paper)}
+.check input:checked{background:var(--matcha);border-color:var(--matcha)}
+.check input:checked::after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.check input:checked + span{text-decoration:line-through;color:var(--muted)}
+
+/* ---------- tips ---------- */
+.tipgrid{display:grid;gap:14px}
+.box{background:var(--paper);border:2px solid var(--line);border-radius:22px;padding:16px}
+.box h3{font-size:19px;margin-bottom:8px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:420px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1.5px solid var(--line);vertical-align:top}
+th{font-weight:500;color:var(--muted);font-size:12px;letter-spacing:.04em}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.temps{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.temp{border-radius:18px;padding:12px;text-align:center}
+.temp.f{background:var(--sky-soft)} .temp.t{background:var(--sakura-soft)}
+.temp b{display:block;font-family:var(--f-pop);font-size:24px;font-variant-numeric:tabular-nums}
+.temp span{font-size:12.5px;color:var(--muted)}
+.phr{display:grid;gap:8px}
+.phrase{display:flex;justify-content:space-between;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:14px;padding:8px 12px;cursor:pointer;background:var(--bg);text-align:left;width:100%}
+.phrase .jp{font-size:16px;font-weight:700}
+.phrase .zh{font-size:12.5px;color:var(--muted)}
+.phrase .say{font-size:11.5px;color:var(--persimmon);white-space:nowrap}
+ul.plain{margin:0;padding-left:18px} ul.plain li{margin:4px 0}
+
+/* big phrase overlay */
+.big{position:fixed;inset:0;background:var(--bg);z-index:30;display:grid;place-items:center;text-align:center;
+  padding:calc(24px + env(safe-area-inset-top,0px)) max(24px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(24px,env(safe-area-inset-left,0px))}
+.big .jp{font-size:clamp(32px,9vw,60px);font-weight:700;line-height:1.3}
+.big .zh{color:var(--muted);margin-top:10px}
+.big button{margin-top:28px;border:2px solid var(--ink);background:transparent;border-radius:999px;padding:8px 22px;cursor:pointer}
+
+/* ---------- tab bar ---------- */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--paper);border-top:2px solid var(--line);
+  padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+nav.tabs .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.tab{border:0;background:transparent;border-radius:14px;padding:5px 2px 4px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:11.5px;color:var(--muted)}
+.tab svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tab[aria-selected="true"]{color:var(--ink);background:var(--persimmon-soft)}
+.tab[aria-selected="true"] svg{stroke:var(--persimmon)}
+.tab.guide svg{stroke:none}
+footer{color:var(--muted);font-size:12px;text-align:center;margin-top:28px}
+@media (max-width:420px){.mascot{width:92px}.hero{padding:18px 16px 14px}}
+</style>
+
+<div class="wrap">
+  <header class="hero" aria-label="旅程封面">
+    <svg class="snow" viewBox="0 0 400 200" preserveAspectRatio="none" aria-hidden="true">
+      <g fill="#FFFFFF" opacity=".9">
+        <circle cx="30" cy="10" r="2.5" style="animation-delay:-1s"/><circle cx="90" cy="30" r="2" style="animation-delay:-3s"/>
+        <circle cx="150" cy="0" r="3" style="animation-delay:-2s"/><circle cx="220" cy="20" r="2" style="animation-delay:-4s"/>
+        <circle cx="290" cy="5" r="2.5" style="animation-delay:-.5s"/><circle cx="360" cy="25" r="2" style="animation-delay:-5s"/>
+      </g>
+    </svg>
+    <div style="min-width:0;position:relative">
+      <div class="kana">ふじさん × とうきょう</div>
+      <h1>富士山 <em>&amp;</em> 東京<br>冬日手帖</h1>
+      <p>2026.12.04 – 12.09｜6 天 5 夜｜河口湖 4 天 → 東京 2 天</p>
+      <div class="count" id="count" aria-live="polite"><span>距離出發</span><b id="countN">—</b><span>天</span></div>
+    </div>
+    <svg class="mascot" viewBox="0 0 120 112" role="img" aria-label="導遊小富">
+      <g class="bob">
+        <path d="M8 104 L48 22 Q60 6 72 22 L112 104 Z" fill="var(--sky)"/>
+        <path d="M38 44 L48 22 Q60 6 72 22 L82 44 Q76 38 70 46 Q64 36 58 46 Q52 38 46 46 Q42 40 38 44Z" fill="#FFFFFF"/>
+        <circle cx="48" cy="70" r="5" fill="#24304A"/><circle cx="72" cy="70" r="5" fill="#24304A"/>
+        <circle cx="49.5" cy="68.5" r="1.6" fill="#FFFFFF"/><circle cx="73.5" cy="68.5" r="1.6" fill="#FFFFFF"/>
+        <ellipse cx="40" cy="80" rx="6" ry="3.5" fill="#FF8FB1" opacity=".8"/><ellipse cx="80" cy="80" rx="6" ry="3.5" fill="#FF8FB1" opacity=".8"/>
+        <path d="M54 80 Q60 86 66 80" stroke="#24304A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M30 104 Q60 92 90 104 Z" fill="#FF7A45"/>
+      </g>
+    </svg>
+    <div class="route" style="grid-column:1/-1">
+      <span class="f">12/4 河口湖抵達</span><span class="f">12/5 湖畔一周</span><span class="f">12/6 忠靈塔・忍野八海</span><span class="f">12/7 西湖・冰穴</span><span class="t">12/8 東京銀杏與燈海</span><span class="t">12/9 淺草・回家</span>
+    </div>
+  </header>
+
+  <!-- ===== 行程 ===== -->
+  <section class="view" id="v-plan" aria-labelledby="h-plan">
+    <div class="sec-head"><h2 id="h-plan">每日行程</h2><small>點日期切換・時間可依航班微調</small></div>
+    <div class="days" role="tablist" id="days" aria-label="選擇日期"></div>
+    <article class="daycard" id="daycard" role="tabpanel"></article>
+  </section>
+
+  <!-- ===== 景點 ===== -->
+  <section class="view" id="v-spots" aria-labelledby="h-spots" hidden>
+    <div class="sec-head"><h2 id="h-spots">景點圖鑑</h2><small>按愛心收藏想去的地方</small></div>
+    <div class="filters" id="filters"></div>
+    <div class="spots" id="spots"></div>
+  </section>
+
+  <!-- ===== 導遊 ===== -->
+  <section class="view" id="v-guide" aria-labelledby="h-guide" hidden>
+    <div class="sec-head"><h2 id="h-guide">問問小富</h2><small>你的富士山＆東京在地導遊</small></div>
+    <div class="chat">
+      <div class="chat-top">
+        <svg viewBox="0 0 120 112" aria-hidden="true"><path d="M8 104 L48 22 Q60 6 72 22 L112 104 Z" fill="var(--sky)"/><path d="M38 44 L48 22 Q60 6 72 22 L82 44 Q76 38 70 46 Q64 36 58 46 Q52 38 46 46 Q42 40 38 44Z" fill="#FFFFFF"/><circle cx="48" cy="70" r="5" fill="#24304A"/><circle cx="72" cy="70" r="5" fill="#24304A"/><ellipse cx="40" cy="80" rx="6" ry="3.5" fill="#FF8FB1"/><ellipse cx="80" cy="80" rx="6" ry="3.5" fill="#FF8FB1"/><path d="M54 80 Q60 86 66 80" stroke="#24304A" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+        <div><b>小富 ふじちゃん</b><small><span class="status off" id="dot"></span><span id="stxt">連線中…</span></small></div>
+      </div>
+      <div class="msgs" id="msgs" aria-live="polite"></div>
+      <div class="quick" id="quick"></div>
+      <form class="composer" id="composer">
+        <input id="q" type="text" placeholder="問我任何旅遊問題，例如：下雨天去哪？" autocomplete="off" aria-label="輸入問題">
+        <button class="send" id="sendBtn" type="submit">送出</button>
+      </form>
+    </div>
+    <p class="note">小富的回答會用到你自己的 Claude 額度，第一次提問時會詢問是否允許。時刻表、票價與活動日期請以官方網站為準。</p>
+  </section>
+
+  <!-- ===== 清單 ===== -->
+  <section class="view" id="v-check" aria-labelledby="h-check" hidden>
+    <div class="sec-head"><h2 id="h-check">出發清單</h2><small>勾選會記在這台裝置上</small></div>
+    <div class="lists" id="lists"></div>
+  </section>
+
+  <!-- ===== 小撇步 ===== -->
+  <section class="view" id="v-tips" aria-labelledby="h-tips" hidden>
+    <div class="sec-head"><h2 id="h-tips">旅行小撇步</h2><small>天氣・交通・日語</small></div>
+    <div class="tipgrid">
+      <div class="box">
+        <h3>12 月初氣溫（平均）</h3>
+        <div class="temps">
+          <div class="temp f"><span>河口湖</span><b>-2° / 7°C</b><span>早晚會結冰，洋蔥式穿搭</span></div>
+          <div class="temp t"><span>東京</span><b>4° / 12°C</b><span>白天舒適，晚上偏冷</span></div>
+        </div>
+        <p class="note">日落約 16:30，下午 4 點就準備找夕陽、5 點後看燈飾。冬季空氣乾燥，是一年中看到富士山機率最高的季節，<b>早上 7–10 點</b>最清楚。</p>
+      </div>
+      <div class="box">
+        <h3>交通速查</h3>
+        <div class="tbl"><table>
+          <thead><tr><th>路線</th><th>方式</th><th>時間</th><th>參考價</th></tr></thead>
+          <tbody>
+            <tr><td>新宿 → 河口湖</td><td>高速巴士（巴士塔新宿出發）</td><td class="num">約 1h45</td><td class="num">約 ¥2,000 起</td></tr>
+            <tr><td>河口湖 → 新宿</td><td>JR 特急「富士回遊」直達</td><td class="num">約 2h</td><td class="num">約 ¥4,130</td></tr>
+            <tr><td>機場 → 河口湖</td><td>羽田／成田直達巴士（班次少）</td><td class="num">約 2.5–3.5h</td><td class="num">需預約</td></tr>
+            <tr><td>河口湖周邊</td><td>周遊巴士 紅線・綠線・藍線</td><td class="num">—</td><td class="num">買 1–2 日券最划算</td></tr>
+          </tbody>
+        </table></div>
+        <p class="note">JR Pass 全國版不能搭富士回遊的富士急段；只有 JR 東京廣域周遊券可以。12 月週末巴士、富士回遊常客滿，建議出發前一個月就訂。</p>
+      </div>
+      <div class="box">
+        <h3>這次「看不到」的活動</h3>
+        <ul class="plain">
+          <li>河口湖冬季花火：每年 1 月底～2 月週末才有，不在你的日期內。</li>
+          <li>河口湖紅葉迴廊：11 月下旬就結束，12 月初只剩零星楓葉。</li>
+          <li>山中湖冬季花火：2025 年是 12/13 單日，也錯過了。</li>
+        </ul>
+        <p class="note">好消息：聖誕燈飾與聖誕市集正熱鬧，神宮外苑銀杏還有尾聲的金黃落葉地毯。</p>
+      </div>
+      <div class="box">
+        <h3>點一下放大給店員看</h3>
+        <div class="phr" id="phr"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>資料整理於 2026 年 10 月。2026 年活動日期多數尚未公布，標註為參考往年，出發前請再確認。</footer>
+</div>
+
+<div class="big" id="big" hidden role="dialog" aria-modal="true" aria-label="放大日語">
+  <div><div class="jp" id="bigJp"></div><div class="zh" id="bigZh"></div><button id="bigClose" type="button">關閉</button></div>
+</div>
+
+<nav class="tabs" aria-label="主選單"><div class="in" role="tablist">
+  <button class="tab" role="tab" data-v="plan" aria-selected="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="4"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>行程</button>
+  <button class="tab" role="tab" data-v="spots" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>景點</button>
+  <button class="tab guide" role="tab" data-v="guide" aria-selected="false"><svg viewBox="0 0 120 112"><path d="M8 104 L48 22 Q60 6 72 22 L112 104 Z" fill="var(--sky)"/><path d="M38 44 L48 22 Q60 6 72 22 L82 44 Q76 38 70 46 Q64 36 58 46 Q52 38 46 46 Q42 40 38 44Z" fill="#FFFFFF"/><circle cx="48" cy="70" r="6" fill="#24304A"/><circle cx="72" cy="70" r="6" fill="#24304A"/><ellipse cx="40" cy="82" rx="7" ry="4" fill="#FF8FB1"/><ellipse cx="80" cy="82" rx="7" ry="4" fill="#FF8FB1"/></svg>問小富</button>
+  <button class="tab" role="tab" data-v="check" aria-selected="false"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="4"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>清單</button>
+  <button class="tab" role="tab" data-v="tips" aria-selected="false"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>撇步</button>
+</div></nav>
+
+<script>
+(function(){
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const map=q=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ---------- countdown ---------- */
+(function(){
+  const now=new Date(); const dep=new Date(2026,11,4);
+  const d=Math.ceil((dep-new Date(now.getFullYear(),now.getMonth(),now.getDate()))/86400000);
+  const n=document.getElementById("countN"), box=document.getElementById("count");
+  if(d>0){n.textContent=d}else if(d>-6){box.innerHTML='<span>旅行中・第</span><b>'+(1-d)+'</b><span>天</span>'}else{box.innerHTML='<span>旅程完成，歡迎回家</span>'}
+})();
+
+/* ---------- itinerary ---------- */
+const DAYS=[
+ {d:"12/4",w:"五",area:"fuji",title:"抵達・河口湖初見面",sub:"飛日本 → 直奔富士山腳下",wx:["河口湖 -2~7°C","日落 16:30"],
+  items:[
+   ["上午","move","抵達羽田／成田機場","有直達河口湖的機場巴士（班次少、要預約）；搭不上就先到新宿，從巴士塔新宿轉高速巴士約 1 小時 45 分。","河口湖駅"],
+   ["15:00","see","入住河口湖溫泉旅館","推薦住北岸或河口湖站周邊，搭周遊巴士最方便。選有露天風呂、看得到富士山的房型！","河口湖温泉"],
+   ["16:00","see","河口湖站前散步看夕陽富士","第一眼富士山就在車站廣場，夕陽時山頂會染成粉橘色。","河口湖駅"],
+   ["18:00","food","晚餐：山梨名物 餺飥（ほうとう）","寬麵條加南瓜、蔬菜燉味噌湯，冬天吃超暖。名店「不動」的大雲朵造型店很好拍。","ほうとう不動 東恋路店"],
+   ["晚上","night","泡湯早點睡","明天要早起看晨間富士，早點休息！",""]],
+  tip:"第一天交通時間長，不排硬行程。晚餐的餺飥份量很大，兩人可以點一份加一份小菜。"},
+ {d:"12/5",w:"六",area:"fuji",title:"河口湖一周：逆富士與湖畔",sub:"周遊巴士紅線一日券玩到飽",wx:["週末人較多","建議 7:00 出門"],
+  items:[
+   ["07:00","see","大石公園・晨間富士","湖北岸視野最開闊，清晨無風時有機會看到湖面倒映的「逆富士」。","大石公園"],
+   ["09:00","food","河口湖自然生活館","二樓陽台可拍富士山，藍莓霜淇淋、藍莓果醬是名產。","河口湖自然生活館"],
+   ["10:30","see","河口湖音樂森林美術館","歐風庭園加自動演奏樂器，像走進童話小鎮。","河口湖音楽と森の美術館"],
+   ["13:00","food","午餐：湖畔咖啡廳或吉田烏龍麵","",""],
+   ["14:30","see","河口湖天上山公園纜車","3 分鐘上山，山頂展望台正對富士山。可以吃狸貓糰子、敲幸運鐘。","河口湖天上山公園カチカチ山ロープウェイ"],
+   ["16:00","see","河口湖遊覽船","20 分鐘繞湖一圈，回程正好接上夕陽。","河口湖遊覧船 天晴"],
+   ["晚上","night","音樂森林冬季點燈（預定）","往年 12 月第二週舉辦，2026 日期未公布，出發前確認。沒有就換成旅館泡湯。",""]],
+  tip:"周遊巴士 30 分鐘左右一班，下午最後幾班很擠，回程別拖到太晚。"},
+ {d:"12/6",w:"日",area:"fuji",title:"忠靈塔・昭和街道・忍野八海",sub:"富士山最經典的明信片場景",wx:["週日・早點出發","398 階樓梯"],
+  items:[
+   ["07:30","see","新倉山淺間公園・忠靈塔","爬 398 階到展望台，五重塔＋富士山同框。週日遊客多，越早越好。","新倉山浅間公園"],
+   ["09:30","see","富士吉田本町通","富士山出現在街道盡頭的人氣打卡點。請站在人行道，不要走到馬路中間拍照。","本町通り 富士吉田"],
+   ["11:30","food","午餐：吉田烏龍麵","麵條超有嚼勁的在地名物，常見配料是高麗菜和馬肉，價格親民。","吉田のうどん"],
+   ["13:30","see","忍野八海","八個湧泉池清澈見底，茅草屋村落很好逛，記得吃炸草餅、烤糰子。","忍野八海"],
+   ["16:30","move","回河口湖","從忍野搭富士急巴士回河口湖站約 30 分鐘。",""],
+   ["19:00","food","晚餐：甲州牛燒肉或旅館會席","",""]],
+  tip:"忠靈塔、本町通、忍野八海順序走，光線最順。下雨天就把這天和 12/7 對調。"},
+ {d:"12/7",w:"一",area:"fuji",title:"西湖療癒之里・冰穴探險",sub:"週一人潮少，玩得最悠閒",wx:["冰穴內約 0°C","穿防滑鞋"],
+  items:[
+   ["09:00","move","搭周遊巴士綠線往西湖","",""],
+   ["09:40","see","西湖療癒之里根場","茅草屋聚落背對富士山，可換和服拍照、體驗手作。","西湖いやしの里根場"],
+   ["12:00","food","午餐：根場聚落內蕎麥麵","",""],
+   ["13:30","see","鳴澤冰穴・富岳風穴","熔岩洞穴裡全年結冰，冬天冰柱最漂亮。兩個步行約 20 分鐘可以一起逛。","鳴沢氷穴"],
+   ["16:00","see","回河口湖買伴手禮","河口湖站內的富士山造型甜點、信玄餅都很受歡迎。","河口湖駅"],
+   ["晚上","night","選配：山中湖 Illumination Fantasium","2025 年是 12/1 起點燈，2026 預計同期，需搭車前往，有興趣出發前確認。","山中湖 イルミネーション ファンタジウム"]],
+  tip:"替代方案：喜歡刺激的話，這天改去富士急樂園，從河口湖站一站就到。"},
+ {d:"12/8",w:"二",area:"tokyo",title:"回東京：金黃銀杏與聖誕燈海",sub:"富士回遊 → 原宿・澀谷・六本木",wx:["東京 4~12°C","燈飾 17:00 起"],
+  items:[
+   ["08:30","move","河口湖 → 新宿｜特急富士回遊","直達約 2 小時，指定席先訂。坐右側車窗看富士山說再見。","河口湖駅"],
+   ["11:00","move","新宿飯店寄放行李","住新宿或澀谷，明天去機場都方便。",""],
+   ["12:00","see","明治神宮外苑銀杏並木","300 公尺銀杏大道，高峰在 11 月下旬；12 月初是尾聲，有金黃落葉地毯。","神宮外苑 いちょう並木"],
+   ["13:30","food","原宿竹下通・表參道","可麗餅、彩色甜點逛起來！表參道精品街可以順路走到澀谷。","竹下通り"],
+   ["15:30","see","SHIBUYA SKY 看夕陽","229 公尺屋頂展望台，晴天能遠眺富士山。夕陽時段熱門，一定要先網路預約。","SHIBUYA SKY"],
+   ["18:00","night","六本木之丘 欅坂燈飾＋聖誕市集","藍白燈海＋東京鐵塔，旁邊有德國風聖誕市集，喝杯熱紅酒。","六本木ヒルズ けやき坂"]],
+  tip:"如果銀杏已經掉光，改去新宿御苑或昭和紀念公園看晚楓也很美。"},
+ {d:"12/9",w:"三",area:"tokyo",title:"淺草下町・帶著回憶回家",sub:"依航班時間彈性調整",wx:["退房前寄行李","預留 3 小時到機場"],
+  items:[
+   ["08:30","see","淺草寺・雷門","早上人少，拍雷門大燈籠最好。","浅草寺"],
+   ["09:30","food","仲見世通吃早點心","人形燒、炸肉餅、菠蘿麵包，邊走邊吃（注意部分店家請在店前吃完）。","仲見世通り"],
+   ["11:00","see","隅田川・晴空塔","過吾妻橋就能拍晴空塔＋朝日啤酒金色雕塑。","東京スカイツリー"],
+   ["13:00","see","東京站一番街","卡通角色街、拉麵街，最後一波伴手禮。","東京駅一番街"],
+   ["晚班機","night","丸之內燈飾（晚班機才有）","東京站前香檳金色行道樹燈飾。","丸の内仲通り"],
+   ["出發","move","前往機場","羽田：東京站搭京急／單軌約 30–40 分；成田：N'EX 或京成 Skyliner 約 1 小時。",""]],
+  tip:"告訴小富你的回程班機時間，我幫你把這天重新排一次！"}
+];
+const daysEl=document.getElementById("days"), card=document.getElementById("daycard");
+let curDay=store.get("ft_day",0);
+function renderDays(){
+  daysEl.innerHTML=DAYS.map((x,i)=>`<button class="daybtn ${x.area}" role="tab" aria-selected="${i===curDay}" data-i="${i}"><span class="d">${x.d}</span><span class="w">${x.area==="fuji"?"富士":"東京"}・週${x.w}</span></button>`).join("");
+  const x=DAYS[curDay];
+  card.innerHTML=`<div class="top"><div><h3>Day ${curDay+1}｜${esc(x.title)}</h3><div class="sub">${esc(x.sub)}</div></div><div class="wx">${x.wx.map((w,j)=>`<span class="chip ${j?"warm":""}">${esc(w)}</span>`).join("")}</div></div>
+  <ol class="timeline">${x.items.map(([t,k,n,p,q])=>`<li class="kind-${k}"><span class="t">${t}</span><div class="body"><b>${esc(n)}</b>${p?`<p>${esc(p)}</p>`:""}${q?`<a class="maplink" href="${map(q)}" target="_blank" rel="noopener">開地圖 ↗</a>`:""}</div></li>`).join("")}</ol>
+  <div class="guide-note"><svg viewBox="0 0 120 112" aria-hidden="true"><path d="M8 104 L48 22 Q60 6 72 22 L112 104 Z" fill="var(--sky)"/><path d="M38 44 L48 22 Q60 6 72 22 L82 44 Q76 38 70 46 Q64 36 58 46 Q52 38 46 46 Q42 40 38 44Z" fill="#FFFFFF"/><circle cx="48" cy="70" r="6" fill="#24304A"/><circle cx="72" cy="70" r="6" fill="#24304A"/><ellipse cx="40" cy="82" rx="7" ry="4" fill="#FF8FB1"/><ellipse cx="80" cy="82" rx="7" ry="4" fill="#FF8FB1"/></svg><div><b>小富提醒：</b>${esc(x.tip)}</div></div>
+  <button class="askday" type="button" data-ask="幫我看看 Day ${curDay+1}（${x.d}）的行程，有什麼可以調整或加碼的？">問小富：這天怎麼玩更好？</button>`;
+}
+daysEl.addEventListener("click",e=>{const b=e.target.closest(".daybtn");if(!b)return;curDay=+b.dataset.i;store.set("ft_day",curDay);renderDays()});
+card.addEventListener("click",e=>{const b=e.target.closest("[data-ask]");if(b){go("guide");ask(b.dataset.ask)}});
+renderDays();
+
+/* ---------- spots ---------- */
+const SPOTS=[
+ ["fuji","大石公園","大石公園","絕景","湖北岸最開闊的富士山視角，無風清晨有逆富士。","7–9 點光線最好"],
+ ["fuji","新倉山淺間公園・忠靈塔","新倉山浅間公園","絕景","五重塔與富士山同框的經典畫面，要爬 398 階。","週末請 8 點前到"],
+ ["fuji","忍野八海","忍野八海","文化","八座富士山伏流水湧泉池，清澈到能看見池底。","炸草餅必吃"],
+ ["fuji","河口湖天上山公園纜車","河口湖天上山公園","絕景","3 分鐘上山的展望台，正面看富士山與河口湖。","山頂有狸貓糰子"],
+ ["fuji","河口湖音樂森林美術館","河口湖音楽と森の美術館","文化","歐風庭園與古董自動演奏樂器，像童話小鎮。","冬季有點燈活動（日期待公布）"],
+ ["fuji","西湖療癒之里根場","西湖いやしの里根場","文化","茅草屋聚落以富士山為背景，可體驗和服。","週一人最少"],
+ ["fuji","鳴澤冰穴","鳴沢氷穴","冒險","熔岩洞內全年結冰，冬天冰柱最壯觀。","洞內低矮，注意頭"],
+ ["fuji","富士吉田本町通","本町通り 富士吉田","絕景","富士山矗立在昭和街道盡頭的人氣打卡點。","請站人行道拍照"],
+ ["fuji","山中湖 Illumination Fantasium","山中湖 イルミネーション ファンタジウム","夜景","湖畔冬季燈飾，往年 12 月初開始。","2026 日期待確認"],
+ ["fuji","富士急樂園","富士急ハイランド","冒險","雲霄飛車迷的天堂，背景就是富士山。","雨備方案"],
+ ["tokyo","明治神宮外苑銀杏並木","神宮外苑 いちょう並木","絕景","146 棵銀杏排成 300 公尺金黃隧道。","12 月初看落葉地毯"],
+ ["tokyo","SHIBUYA SKY","SHIBUYA SKY","夜景","澀谷高空露天展望台，晴天看得到富士山。","夕陽場一定要預約"],
+ ["tokyo","六本木之丘 欅坂燈飾","六本木ヒルズ けやき坂","夜景","藍白燈海襯著東京鐵塔，旁邊有聖誕市集。","往年燈飾到 12/25"],
+ ["tokyo","丸之內燈飾","丸の内仲通り","夜景","東京站前香檳金色行道樹，浪漫指數滿分。","往年 11 月中到隔年 2 月"],
+ ["tokyo","淺草寺・仲見世通","浅草寺","文化","東京最古老寺院，商店街邊走邊吃。","早上 9 點前人最少"],
+ ["tokyo","原宿竹下通","竹下通り","購物","可麗餅、可愛小物、潮流服飾一次逛。","平日午後較好走"],
+ ["tokyo","東京站一番街","東京駅一番街","購物","卡通角色街＋拉麵街，最後補貨伴手禮。","回機場前順路"],
+ ["tokyo","吉田烏龍麵","吉田のうどん","美食","超有嚼勁的富士吉田在地麵，便宜大碗。","多數店只開中午"]
+];
+const AREAS=[["all","全部"],["fav","我的收藏"],["fuji","富士山區"],["tokyo","東京"]];
+let fav=store.get("ft_fav",[]), filt="all";
+const fEl=document.getElementById("filters"), sEl=document.getElementById("spots");
+function renderSpots(){
+  fEl.innerHTML=AREAS.map(([k,l])=>`<button class="fbtn" aria-pressed="${filt===k}" data-f="${k}">${l}${k==="fav"?` (${fav.length})`:""}</button>`).join("");
+  const list=SPOTS.filter(s=>filt==="all"||(filt==="fav"?fav.includes(s[1]):s[0]===filt));
+  sEl.innerHTML=list.length?list.map(([a,n,jp,tag,d,tip])=>`<div class="spot ${a}"><span class="tag">${tag}</span>
+   <button class="heart" aria-pressed="${fav.includes(n)}" aria-label="收藏 ${esc(n)}" data-h="${esc(n)}"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></button>
+   <h3>${esc(n)}</h3><div class="jp">${esc(jp)}</div><p>${esc(d)}</p><div class="tip">${esc(tip)}</div>
+   <div class="row"><a class="maplink" href="${map(jp)}" target="_blank" rel="noopener">開地圖 ↗</a><button class="fbtn" style="font-size:12px;padding:3px 10px" data-ask="介紹一下「${esc(n)}」，冬天去要注意什麼？">問小富</button></div></div>`).join("")
+   :`<div class="empty">還沒有收藏，到「全部」按愛心收藏想去的景點吧！</div>`;
+}
+fEl.addEventListener("click",e=>{const b=e.target.closest("[data-f]");if(b){filt=b.dataset.f;renderSpots()}});
+sEl.addEventListener("click",e=>{const h=e.target.closest("[data-h]");if(h){const n=h.dataset.h;fav=fav.includes(n)?fav.filter(x=>x!==n):[...fav,n];store.set("ft_fav",fav);renderSpots();return}
+  const a=e.target.closest("[data-ask]");if(a){go("guide");ask(a.dataset.ask)}});
+renderSpots();
+
+/* ---------- checklist ---------- */
+const LISTS=[
+ ["出發前要預約",["機票、住宿確認","機場→河口湖巴士 或 新宿高速巴士","12/8 特急富士回遊指定席","SHIBUYA SKY 夕陽時段","Visit Japan Web 入境資料","旅遊平安險"]],
+ ["行李：保暖裝備",["發熱衣 ×3","羽絨外套","毛帽・手套・圍巾","暖暖包（可到日本藥妝店補）","防滑好走的鞋","護唇膏・乳液（很乾燥）"]],
+ ["行李：隨身必備",["護照","日圓現金（鄉下小店常只收現金）","Suica 西瓜卡（手機版也可）","網卡 / eSIM","行動電源・充電線","常備藥品"]]
+];
+let checks=store.get("ft_checks",{});
+const lEl=document.getElementById("lists");
+function renderLists(){
+  lEl.innerHTML=LISTS.map(([t,items],li)=>{const done=items.filter((_,i)=>checks[li+"-"+i]).length;
+   return `<div class="list"><h3>${t}<small>${done}/${items.length}</small></h3><div class="bar"><i style="width:${done/items.length*100}%"></i></div>
+   ${items.map((it,i)=>`<label class="check"><input type="checkbox" id="c${li}-${i}" data-c="${li}-${i}" ${checks[li+"-"+i]?"checked":""}><span>${it}</span></label>`).join("")}</div>`}).join("");
+}
+lEl.addEventListener("change",e=>{const c=e.target.dataset.c;if(!c)return;checks[c]=e.target.checked;store.set("ft_checks",checks);renderLists();const el=document.getElementById("c"+c);el&&el.focus()});
+renderLists();
+
+/* ---------- phrases ---------- */
+const PH=[["すみません","不好意思（叫人、借過都能用）"],["これをください","我要這個"],["いくらですか？","多少錢？"],["トイレはどこですか？","廁所在哪裡？"],["写真を撮ってもらえますか？","可以幫我拍照嗎？"],["おすすめは何ですか？","有什麼推薦的？"],["カードは使えますか？","可以刷卡嗎？"],["ありがとうございます","謝謝您"]];
+const phr=document.getElementById("phr"), big=document.getElementById("big");
+phr.innerHTML=PH.map(([j,z],i)=>`<button class="phrase" type="button" data-p="${i}"><span><span class="jp">${j}</span><br><span class="zh">${z}</span></span><span class="say">放大 ↗</span></button>`).join("");
+let lastFocus=null;
+phr.addEventListener("click",e=>{const b=e.target.closest("[data-p]");if(!b)return;lastFocus=b;const p=PH[+b.dataset.p];
+  document.getElementById("bigJp").textContent=p[0];document.getElementById("bigZh").textContent=p[1];big.hidden=false;document.getElementById("bigClose").focus()});
+function closeBig(){big.hidden=true;lastFocus&&lastFocus.focus()}
+document.getElementById("bigClose").onclick=closeBig;
+big.addEventListener("click",e=>{if(e.target===big)closeBig()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!big.hidden)closeBig()});
+
+/* ---------- tabs ---------- */
+const tabs=[...document.querySelectorAll(".tab")];
+function go(v){tabs.forEach(t=>t.setAttribute("aria-selected",t.dataset.v===v));
+  document.querySelectorAll("section.view").forEach(s=>s.hidden=s.id!=="v-"+v);store.set("ft_tab",v);window.scrollTo({top:0})}
+tabs.forEach(t=>t.onclick=()=>go(t.dataset.v));
+const startTab=(location.hash||"").replace("#","");
+go(["plan","spots","guide","check","tips"].includes(startTab)?startTab:store.get("ft_tab","plan"));
+
+/* ---------- AI guide ---------- */
+const msgsEl=document.getElementById("msgs"), qEl=document.getElementById("q"), sendBtn=document.getElementById("sendBtn");
+const dot=document.getElementById("dot"), stxt=document.getElementById("stxt");
+let sample=null, busy=false, history=[];
+const QUICK=["下雨天富士山區可以去哪？","河口湖有什麼必吃美食？","12月要怎麼穿才不會冷？","推薦東京的伴手禮","富士回遊要怎麼訂票？","我的回程班機是下午，Day 6 怎麼排？"];
+document.getElementById("quick").innerHTML=QUICK.map(q=>`<button type="button">${q}</button>`).join("");
+document.getElementById("quick").addEventListener("click",e=>{const b=e.target.closest("button");if(b)ask(b.textContent)});
+
+const TRIP=DAYS.map((x,i)=>`Day${i+1} ${x.d}(週${x.w}) ${x.title}：`+x.items.map(it=>it[0]+" "+it[2]).join("、")).join("\n");
+const BRIEF=`你是「小富（ふじちゃん）」，一位活潑、可愛又專業的日本在地導遊（富士五湖與東京）。旅客來自台灣，請一律用繁體中文（台灣用語）回答。
+旅程：2026/12/4–12/9，共6天。前4天住河口湖、玩富士山周邊，後2天在東京。
+目前行程：
+${TRIP}
+已知資訊：河口湖12月初平均氣溫約-2~7°C、東京約4~12°C，日落約16:30；新宿↔河口湖高速巴士約1h45、特急富士回遊約2小時約¥4,130；河口湖冬季花火在1–2月，不在本次日期；神宮外苑銀杏高峰在11月下旬，12月初是尾聲。2026年多數活動日期尚未公布。
+回答規則：語氣親切有活力，可偶爾加一點日文口頭禪，但內容要實用、具體；手機閱讀，控制在約200字內，必要時用簡短條列；不確定的營業時間、票價、活動日期要提醒旅客上官網確認，絕不編造；只能用文字回答，不會上網查資料。`;
+
+function add(role,text){const d=document.createElement("div");d.className="msg "+(role==="user"?"me":"bot");d.textContent=text;msgsEl.appendChild(d);msgsEl.scrollTop=msgsEl.scrollHeight;return d}
+add("bot","こんにちは～我是小富！🗻 你的富士山＆東京專屬導遊。\n行程、美食、穿搭、交通，想到什麼都可以問我喔！");
+
+function setStatus(on,txt){dot.classList.toggle("off",!on);stxt.textContent=txt}
+const FALLBACK={"雨":"下雨的話推薦：音樂森林美術館、鳴澤冰穴／富岳風穴、富士急樂園室內設施，或乾脆泡一下午溫泉。忍野八海小雨也很有氣氛！",
+ "吃":"河口湖必吃：餺飥（ほうとう）、吉田烏龍麵、藍莓霜淇淋、信玄餅、忍野八海炸草餅。","穿":"洋蔥式穿搭：發熱衣＋毛衣＋羽絨外套，加毛帽手套圍巾。河口湖早晚會到零下，鞋子要防滑。",
+ "伴手禮":"東京站一番街和機場都很好買：東京香蕉、薯條三兄弟、Press Butter Sand；富士山區買信玄餅、富士山造型餅乾。","回遊":"富士回遊可在 JR 東日本官網（えきねっと）預約指定席，旺季建議一個月前就訂。"};
+function fallback(q){for(const k in FALLBACK){if(q.includes(k))return FALLBACK[k]}return "小富現在連不上大腦，先看看「行程」和「撇步」頁的資料喔！在 Claude 裡打開這個頁面就能直接問我。"}
+
+async function ask(q){
+  q=(q||"").trim(); if(!q||busy)return;
+  add("user",q); qEl.value="";
+  const b=add("bot","小富思考中…"); b.classList.add("thinking");
+  if(!sample){b.classList.remove("thinking");b.textContent=fallback(q);return}
+  busy=true; sendBtn.disabled=true;
+  history.push({role:"user",content:q});
+  const turns=history.slice(-10).map((m,i)=>i===0&&m.role==="user"?{role:"user",content:BRIEF+"\n\n旅客問題："+m.content}:m);
+  if(turns[0].role!=="user")turns.shift();
+  if(!turns[0].content.startsWith("你是「小富"))turns[0]={role:"user",content:BRIEF+"\n\n旅客問題："+turns[0].content};
+  try{
+    const r=await sample(turns,{modelTier:"quick",cache:false,onText:({text})=>{b.classList.remove("thinking");b.textContent=text;msgsEl.scrollTop=msgsEl.scrollHeight}});
+    b.classList.remove("thinking"); b.textContent=r.text; history.push({role:"assistant",content:r.text});
+  }catch(e){
+    b.classList.remove("thinking"); history.pop();
+    if(e&&e.code==="not_granted"){sample=null;setStatus(false,"未授權・使用離線小抄");b.textContent="沒關係～沒有授權的話，小富先用離線小抄回答：\n"+fallback(q)}
+    else if(e&&e.code==="rate_limited"){b.textContent="小富有點喘不過氣，等一下再問我一次好嗎？"}
+    else{b.textContent=(e&&e.text)?e.text:"糟糕，訊號不太好，請稍後再試一次。"}
+  }finally{busy=false;sendBtn.disabled=false}
+}
+document.getElementById("composer").addEventListener("submit",e=>{e.preventDefault();ask(qEl.value)});
+
+(async()=>{
+  try{ if(window.claude&&window.claude.use){ sample=await window.claude.use("sample"); } }catch(e){ sample=null }
+  setStatus(!!sample, sample?"線上・隨時可以問":"離線小抄模式");
+})();
+})();
+</script>
+
+</body>
+</html>
