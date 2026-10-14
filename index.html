@@ -147,6 +147,15 @@ section.view[hidden]{display:none}
 .chat-top small{color:var(--muted);font-size:12px}
 .status{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--matcha);margin-right:4px;vertical-align:middle}
 .status.off{background:var(--muted)}
+.chat-top > div{flex:1;min-width:0}
+.keybtn{border:2px solid var(--persimmon);background:var(--paper);color:var(--persimmon);border-radius:999px;padding:4px 12px;font-size:12.5px;cursor:pointer;white-space:nowrap}
+.keypanel{padding:14px;border-bottom:2px solid var(--line);background:var(--bg);display:grid;gap:8px;font-size:13.5px}
+.keypanel p{margin:0;color:var(--muted);font-size:12.5px}
+.keypanel input{border:2px solid var(--line);border-radius:12px;padding:9px 12px;background:var(--paper);color:var(--ink);font:inherit;font-size:16px;width:100%}
+.keyrow{display:flex;gap:8px;flex-wrap:wrap}
+.keyrow button{border:0;border-radius:999px;padding:7px 16px;cursor:pointer;font-weight:700}
+.keyrow .save{background:var(--persimmon);color:#fff}
+.keyrow .clear{background:transparent;border:2px solid var(--line)}
 .msgs{padding:14px;display:flex;flex-direction:column;gap:10px;min-height:260px;max-height:52vh;overflow-y:auto}
 .msg{max-width:86%;padding:9px 13px;border-radius:18px;font-size:14px;white-space:pre-wrap;word-break:break-word}
 .msg.bot{background:var(--bg);border-bottom-left-radius:4px;align-self:flex-start}
@@ -267,7 +276,14 @@ footer{color:var(--muted);font-size:12px;text-align:center;margin-top:28px}
       <div class="chat-top">
         <svg viewBox="0 0 120 112" aria-hidden="true"><path d="M8 104 L48 22 Q60 6 72 22 L112 104 Z" fill="var(--sky)"/><path d="M38 44 L48 22 Q60 6 72 22 L82 44 Q76 38 70 46 Q64 36 58 46 Q52 38 46 46 Q42 40 38 44Z" fill="#FFFFFF"/><circle cx="48" cy="70" r="5" fill="#24304A"/><circle cx="72" cy="70" r="5" fill="#24304A"/><ellipse cx="40" cy="80" rx="6" ry="3.5" fill="#FF8FB1"/><ellipse cx="80" cy="80" rx="6" ry="3.5" fill="#FF8FB1"/><path d="M54 80 Q60 86 66 80" stroke="#24304A" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
         <div><b>小富 ふじちゃん</b><small><span class="status off" id="dot"></span><span id="stxt">連線中…</span></small></div>
+        <button class="keybtn" id="keyBtn" type="button" aria-expanded="false" aria-controls="keyPanel" hidden>API 金鑰</button>
       </div>
+      <form class="keypanel" id="keyPanel" hidden>
+        <label for="apiKey"><b>貼上你的 Claude API 金鑰，就能和小富即時聊天</b></label>
+        <input id="apiKey" type="password" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
+        <div class="keyrow"><button class="save" type="submit">儲存</button><button class="clear" type="button" id="keyClear">清除金鑰</button></div>
+        <p>金鑰只存在這台裝置的瀏覽器裡，不會上傳到 GitHub。到 <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a> 建立金鑰並儲值，按實際用量計費。借別人手機用完記得按「清除金鑰」。</p>
+      </form>
       <div class="msgs" id="msgs" aria-live="polite"></div>
       <div class="quick" id="quick"></div>
       <form class="composer" id="composer">
@@ -275,7 +291,7 @@ footer{color:var(--muted);font-size:12px;text-align:center;margin-top:28px}
         <button class="send" id="sendBtn" type="submit">送出</button>
       </form>
     </div>
-    <p class="note">小富的回答會用到你自己的 Claude 額度，第一次提問時會詢問是否允許。時刻表、票價與活動日期請以官方網站為準。</p>
+    <p class="note">在 Claude 裡開啟時，小富用你的 Claude 額度回答；在 GitHub 網頁上，設定 API 金鑰後即可即時聊天，沒設定則使用離線小抄。時刻表、票價與活動日期請以官方網站為準。</p>
   </section>
 
   <!-- ===== 清單 ===== -->
@@ -529,7 +545,8 @@ async function ask(q){
   q=(q||"").trim(); if(!q||busy)return;
   add("user",q); qEl.value="";
   const b=add("bot","小富思考中…"); b.classList.add("thinking");
-  if(!sample){b.classList.remove("thinking");b.textContent=fallback(q);return}
+  if(!sample&&apiKey){return apiAsk(q,b)}
+  if(!sample){b.classList.remove("thinking");b.textContent=fallback(q)+"\n\n（想即時聊天？按右上角「API 金鑰」設定）";return}
   busy=true; sendBtn.disabled=true;
   history.push({role:"user",content:q});
   const turns=history.slice(-10).map((m,i)=>i===0&&m.role==="user"?{role:"user",content:BRIEF+"\n\n旅客問題："+m.content}:m);
@@ -547,9 +564,59 @@ async function ask(q){
 }
 document.getElementById("composer").addEventListener("submit",e=>{e.preventDefault();ask(qEl.value)});
 
+/* --- direct Claude API (GitHub Pages / any static host) --- */
+const MODEL="claude-haiku-5-5";
+let apiKey=store.get("ft_key","");
+const keyBtn=document.getElementById("keyBtn"), keyPanel=document.getElementById("keyPanel"), keyIn=document.getElementById("apiKey");
+function refreshStatus(){
+  if(sample){keyBtn.hidden=true;keyPanel.hidden=true;setStatus(true,"線上・隨時可以問");return}
+  keyBtn.hidden=false;
+  setStatus(!!apiKey, apiKey?"線上・使用你的 API 金鑰":"離線小抄模式");
+}
+keyBtn.onclick=()=>{keyPanel.hidden=!keyPanel.hidden;keyBtn.setAttribute("aria-expanded",!keyPanel.hidden);if(!keyPanel.hidden){keyIn.value=apiKey;keyIn.focus()}};
+keyPanel.addEventListener("submit",e=>{e.preventDefault();const v=keyIn.value.trim();
+  if(v&&!v.startsWith("sk-ant-")){add("bot","這看起來不像 Claude 的金鑰喔，金鑰應該以 sk-ant- 開頭。");return}
+  apiKey=v;store.set("ft_key",apiKey);keyPanel.hidden=true;keyBtn.setAttribute("aria-expanded","false");refreshStatus();
+  add("bot",apiKey?"金鑰設定好了！現在可以盡情問我囉～":"已清除金鑰，回到離線小抄模式。")});
+document.getElementById("keyClear").onclick=()=>{keyIn.value="";apiKey="";try{localStorage.removeItem("ft_key")}catch(e){}keyPanel.hidden=true;keyBtn.setAttribute("aria-expanded","false");refreshStatus();add("bot","已清除金鑰，回到離線小抄模式。")};
+
+async function apiAsk(q,b){
+  busy=true;sendBtn.disabled=true;
+  history.push({role:"user",content:q});
+  let turns=history.slice(-10); while(turns.length&&turns[0].role!=="user")turns.shift();
+  let text="";
+  try{
+    const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",
+      headers:{"content-type":"application/json","x-api-key":apiKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+      body:JSON.stringify({model:MODEL,max_tokens:800,system:BRIEF,messages:turns,stream:true})});
+    if(!res.ok){let msg="";try{msg=(await res.json()).error?.message||""}catch(e){}
+      throw {status:res.status,msg}}
+    const reader=res.body.getReader(), dec=new TextDecoder(); let buf="";
+    for(;;){const {done,value}=await reader.read(); if(done)break;
+      buf+=dec.decode(value,{stream:true}); const lines=buf.split("\n"); buf=lines.pop();
+      for(const ln of lines){ if(!ln.startsWith("data:"))continue;
+        let ev; try{ev=JSON.parse(ln.slice(5))}catch(e){continue}
+        if(ev.type==="content_block_delta"&&ev.delta&&ev.delta.type==="text_delta"){text+=ev.delta.text;b.classList.remove("thinking");b.textContent=text;msgsEl.scrollTop=msgsEl.scrollHeight}
+        if(ev.type==="error")throw {status:0,msg:ev.error?.message||""}
+      }}
+    if(!text)throw {status:0,msg:"empty"};
+    history.push({role:"assistant",content:text});
+  }catch(e){
+    history.pop(); b.classList.remove("thinking");
+    const s=e&&e.status;
+    if(s===401)b.textContent="金鑰好像不對（401），請按「API 金鑰」重新貼上。";
+    else if(s===400&&/credit/i.test(e.msg||""))b.textContent="API 帳戶餘額不足，請到 console.anthropic.com 儲值。";
+    else if(s===429)b.textContent="問得太快啦，小富喘口氣，等一下再試。";
+    else if(s===529||s===503)b.textContent="Claude 伺服器正忙，稍後再試一次。";
+    else if(text)b.textContent=text+"\n（訊號中斷，回答可能不完整）";
+    else b.textContent="連不上 Claude，請檢查網路。離線小抄先幫你：\n"+fallback(q);
+  }finally{busy=false;sendBtn.disabled=false}
+}
+
+refreshStatus();
 (async()=>{
   try{ if(window.claude&&window.claude.use){ sample=await window.claude.use("sample"); } }catch(e){ sample=null }
-  setStatus(!!sample, sample?"線上・隨時可以問":"離線小抄模式");
+  refreshStatus();
 })();
 })();
 </script>
